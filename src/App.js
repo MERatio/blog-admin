@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { getData } from './lib/helpers';
 import Bus from './utils/Bus';
+import BootstrapSpinner from './components/BootstrapSpinner';
 import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
 import SignUpForm from './components/SignUpForm';
@@ -27,7 +28,9 @@ function App() {
 		return () => clearInterval(intervalId);
 	}, []);
 
-	return (
+	return user === null ? (
+		<BootstrapSpinner type={'grow'} size={'3em'} />
+	) : (
 		<>
 			<Navbar user={user} />
 			<div className="container">
