@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { getData } from './lib/helpers';
 import Bus from './utils/Bus';
 import Flashes from './components/Flashes';
 import SignUpForm from './components/SignUpForm';
@@ -11,6 +12,18 @@ function App() {
 
 	useEffect(() => {
 		window.flashes = (flashes) => Bus.emit('flashes', flashes);
+	}, []);
+
+	useEffect(() => {
+		async function getCurrentUser() {
+			const data = await getData(
+				`${process.env.REACT_APP_API_URL}/users/current-user`
+			);
+			setUser(data.user);
+		}
+		getCurrentUser();
+		const intervalId = setInterval(getCurrentUser, 30000);
+		return () => clearInterval(intervalId);
 	}, []);
 
 	return (
