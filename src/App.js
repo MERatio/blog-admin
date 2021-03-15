@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { getData } from './lib/helpers';
 import Bus from './utils/Bus';
 import BootstrapSpinner from './components/BootstrapSpinner';
@@ -53,6 +53,9 @@ function App() {
 			</div>
 			<main>
 				<Switch>
+					<Route exact path="/">
+						<Redirect to="/posts" />
+					</Route>
 					<Route exact path="/sign-up">
 						<div className="container">
 							<div className="row justify-content-center">
