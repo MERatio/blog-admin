@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { getData } from './lib/helpers';
 import Bus from './utils/Bus';
+import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
@@ -28,6 +29,7 @@ function App() {
 
 	return (
 		<>
+			<Navbar user={user} />
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="col-md-8">
