@@ -3,6 +3,7 @@ async function postData(url = '', data = {}) {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
 		},
 		body: JSON.stringify(data),
 	});
