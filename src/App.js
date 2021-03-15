@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { getData } from './lib/helpers';
 import Bus from './utils/Bus';
 import BootstrapSpinner from './components/BootstrapSpinner';
@@ -10,7 +10,18 @@ import SignInForm from './components/SignInForm';
 import './App.css';
 
 function App() {
+	const history = useHistory();
+
 	const [user, setUser] = useState(null);
+
+	function signOut() {
+		localStorage.removeItem('jwt');
+		setUser(false);
+		window.flashes([
+			{ msg: 'You have successfully signed out', type: 'success' },
+		]);
+		history.push('/');
+	}
 
 	useEffect(() => {
 		window.flashes = (flashes) => Bus.emit('flashes', flashes);
@@ -32,7 +43,7 @@ function App() {
 		<BootstrapSpinner type={'grow'} size={'3em'} />
 	) : (
 		<>
-			<Navbar user={user} />
+			<Navbar user={user} signOut={signOut} />
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="col-md-8">
