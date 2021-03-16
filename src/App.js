@@ -5,6 +5,7 @@ import Bus from './utils/Bus';
 import BootstrapSpinner from './components/BootstrapSpinner';
 import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
+import Posts from './components/Posts';
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
 import './App.css';
@@ -55,6 +56,15 @@ function App() {
 				<Switch>
 					<Route exact path="/">
 						<Redirect to="/posts" />
+					</Route>
+					<Route exact path="/posts">
+						<div className="container">
+							<div className="row justify-content-center">
+								<div className="col-md-8">
+									<Posts />
+								</div>
+							</div>
+						</div>
 					</Route>
 					<Route exact path="/sign-up">
 						<div className="container">
