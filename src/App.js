@@ -6,6 +6,7 @@ import BootstrapSpinner from './components/BootstrapSpinner';
 import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
 import Posts from './components/Posts';
+import Post from './components/Post';
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
 import './App.css';
@@ -62,6 +63,15 @@ function App() {
 							<div className="row justify-content-center">
 								<div className="col-md-8">
 									<Posts />
+								</div>
+							</div>
+						</div>
+					</Route>
+					<Route exact path="/posts/:postId">
+						<div className="container">
+							<div className="row justify-content-center">
+								<div className="col-md-8 position-relative">
+									<Post user={user} />
 								</div>
 							</div>
 						</div>
