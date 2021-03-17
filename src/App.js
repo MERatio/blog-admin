@@ -62,7 +62,7 @@ function App() {
 						<div className="container">
 							<div className="row justify-content-center">
 								<div className="col-md-8">
-									<Posts />
+									<Posts user={user} />
 								</div>
 							</div>
 						</div>

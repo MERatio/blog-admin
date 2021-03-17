@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
 import useIsLoading from '../lib/useIsLoading';
-import { getData, handleExpressErr } from '../lib/helpers';
+import { getData, putPostPublished, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostCard from './PostCard';
 import PostComments from './PostComments';
 
-function Post() {
+function Post({ user }) {
 	const { postId } = useParams();
 	const history = useHistory();
 
@@ -61,6 +62,14 @@ function Post() {
 		}
 	}
 
+	async function handleUpdatePostPublishedBtnClick(postWithComments) {
+		const updatedPost = await putPostPublished(postWithComments);
+		setPostWithComments((prevPostWithComments) => ({
+			...prevPostWithComments,
+			published: updatedPost.published,
+		}));
+	}
+
 	useEffect(() => {
 		getPost(isMounted, postId);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,10 +81,18 @@ function Post() {
 		</div>
 	) : postWithComments._id ? (
 		<section className="mb-4">
-			<PostCard postWithComments={postWithComments} />
+			<PostCard
+				user={user}
+				postWithComments={postWithComments}
+				handleUpdatePostPublishedBtnClick={handleUpdatePostPublishedBtnClick}
+			/>
 			<PostComments postComments={postWithComments.comments} />
 		</section>
 	) : null;
 }
+
+Post.propTypes = {
+	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
+};
 
 export default Post;

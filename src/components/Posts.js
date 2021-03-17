@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import useIsMounted from '../lib/useIsMounted';
 import useIsLoading from '../lib/useIsLoading';
-import { getData, handleExpressErr } from '../lib/helpers';
+import { getData, putPostPublished, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostsCards from './PostsCards';
 
-function Posts() {
+function Posts({ user }) {
 	const isMounted = useIsMounted();
 	const [getPostsWithComments, isGettingPostsWithComments] = useIsLoading(
 		fetchAndSetPostsWithComments
@@ -64,6 +65,22 @@ function Posts() {
 		}
 	}
 
+	async function handleUpdatePostPublishedBtnClick(postWithComments) {
+		const updatedPost = await putPostPublished(postWithComments);
+		setPostsWithComments((prevPostsWithComments) => {
+			return prevPostsWithComments.map((prevPostWithComments) => {
+				if (prevPostWithComments._id !== postWithComments._id) {
+					return prevPostWithComments;
+				} else {
+					return {
+						...prevPostWithComments,
+						published: updatedPost.published,
+					};
+				}
+			});
+		});
+	}
+
 	useEffect(() => {
 		getPostsWithComments(isMounted);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,9 +92,17 @@ function Posts() {
 		</div>
 	) : (
 		<section className="position-relative">
-			<PostsCards postsWithComments={postsWithComments} />
+			<PostsCards
+				user={user}
+				postsWithComments={postsWithComments}
+				handleUpdatePostPublishedBtnClick={handleUpdatePostPublishedBtnClick}
+			/>
 		</section>
 	);
 }
+
+Posts.propTypes = {
+	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
+};
 
 export default Posts;
