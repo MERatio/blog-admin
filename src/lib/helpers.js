@@ -8,9 +8,9 @@ async function getData(url = '') {
 	return response.json();
 }
 
-async function postData(url = '', data = {}) {
+async function uploadData(method, url = '', data = {}) {
 	const response = await fetch(url, {
-		method: 'POST',
+		method,
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -24,4 +24,4 @@ function handleExpressErr(err) {
 	window.flashes([{ msg: err.message }]);
 }
 
-export { getData, postData, handleExpressErr };
+export { getData, uploadData, handleExpressErr };

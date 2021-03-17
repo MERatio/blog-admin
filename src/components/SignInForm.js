@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
 import useIsLoading from '../lib/useIsLoading';
-import { postData, handleExpressErr } from '../lib/helpers';
+import { uploadData, handleExpressErr } from '../lib/helpers';
 import SubmitBtn from './SubmitBtn';
 
 function SignInForm({ setUser }) {
 	const history = useHistory();
 
 	const isMounted = useIsMounted();
-	const [submitFormData, isSubmitting] = useIsLoading(postData);
+	const [submitFormData, isSubmitting] = useIsLoading(uploadData);
 
 	const [state, setState] = useState({
 		username: '',
@@ -28,6 +28,7 @@ function SignInForm({ setUser }) {
 		try {
 			e.preventDefault();
 			const data = await submitFormData(
+				'POST',
 				`${process.env.REACT_APP_API_URL}/auth/sign-in`,
 				state
 			);
