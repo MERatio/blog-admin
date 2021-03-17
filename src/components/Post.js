@@ -67,11 +67,11 @@ function Post() {
 	}, [isMounted, postId]);
 
 	return isGettingPost ? (
-		<div className="Posts">
+		<div className="bootstrap-spinner-container">
 			<BootstrapSpinner type={'border'} size={'2em'} />
 		</div>
 	) : postWithComments._id ? (
-		<section className="Posts mb-4">
+		<section className="mb-4">
 			<PostCard postWithComments={postWithComments} />
 			<PostComments postComments={postWithComments.comments} />
 		</section>

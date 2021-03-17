@@ -4,7 +4,6 @@ import useIsLoading from '../lib/useIsLoading';
 import { getData, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostsCards from './PostsCards';
-import '../css/Posts.css';
 
 function Posts() {
 	const isMounted = useIsMounted();
@@ -70,13 +69,13 @@ function Posts() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isMounted]);
 
-	return (
-		<section className="Posts position-relative">
-			{isGettingPostsWithComments ? (
-				<BootstrapSpinner type={'border'} size={'2em'} />
-			) : (
-				<PostsCards postsWithComments={postsWithComments} />
-			)}
+	return isGettingPostsWithComments ? (
+		<div className="bootstrap-spinner-container">
+			<BootstrapSpinner type={'border'} size={'2em'} />
+		</div>
+	) : (
+		<section className="position-relative">
+			<PostsCards postsWithComments={postsWithComments} />
 		</section>
 	);
 }
