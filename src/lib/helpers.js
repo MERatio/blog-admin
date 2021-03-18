@@ -39,8 +39,36 @@ async function putPostPublished(post) {
 	}
 }
 
+async function deletePostComment(postId, postCommentId) {
+	try {
+		const response = await fetch(
+			`${process.env.REACT_APP_API_URL}/posts/${postId}/comments/${postCommentId}`,
+			{
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+				},
+			}
+		);
+		const data = await response.json();
+		if (data.err) {
+			handleExpressErr(data.err);
+		} else {
+			return data.comment;
+		}
+	} catch (err) {
+		window.flashes([{ msg: 'Something went wrong, please try again later.' }]);
+	}
+}
+
 function handleExpressErr(err) {
 	window.flashes([{ msg: err.message }]);
 }
 
-export { getData, uploadData, putPostPublished, handleExpressErr };
+export {
+	getData,
+	uploadData,
+	putPostPublished,
+	deletePostComment,
+	handleExpressErr,
+};

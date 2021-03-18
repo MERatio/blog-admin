@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
 import useIsLoading from '../lib/useIsLoading';
-import { getData, putPostPublished, handleExpressErr } from '../lib/helpers';
+import {
+	getData,
+	putPostPublished,
+	deletePostComment,
+	handleExpressErr,
+} from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostCard from './PostCard';
 import PostComments from './PostComments';
@@ -72,6 +77,18 @@ function Post({ user }) {
 		}
 	}
 
+	async function handlePostCommentDelete(postCommentId) {
+		const deletedPostComment = await deletePostComment(postId, postCommentId);
+		if (isMounted && deletedPostComment) {
+			setPostWithComments((prevPostWithComments) => ({
+				...prevPostWithComments,
+				comments: prevPostWithComments.comments.filter(
+					(comment) => comment._id !== postCommentId
+				),
+			}));
+		}
+	}
+
 	useEffect(() => {
 		getPost(isMounted, postId);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +105,10 @@ function Post({ user }) {
 				postWithComments={postWithComments}
 				handleUpdatePostPublishedBtnClick={handleUpdatePostPublishedBtnClick}
 			/>
-			<PostComments postComments={postWithComments.comments} />
+			<PostComments
+				postComments={postWithComments.comments}
+				handlePostCommentDelete={handlePostCommentDelete}
+			/>
 		</section>
 	) : null;
 }
