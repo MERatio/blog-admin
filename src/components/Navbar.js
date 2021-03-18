@@ -20,37 +20,39 @@ function Navbar({ user, signOut }) {
 			</button>
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav ml-auto">
-					<li className="nav-item">
-						<NavLink
-							exact
-							to="/posts"
-							className="nav-link"
-							activeClassName="active"
-						>
-							Posts
-						</NavLink>
-					</li>
 					{user ? (
-						<li className="nav-item dropdown">
-							<button
-								className="nav-link btn btn-link dropdown-toggle"
-								id="navbarDropdown"
-								data-toggle="dropdown"
-								aria-haspopup="true"
-								aria-expanded="false"
-							>
-								{user.username}
-							</button>
-							<div className="dropdown-menu dropdown-menu-right">
-								<button
-									className="dropdown-item"
-									type="button"
-									onClick={signOut}
+						<>
+							<li className="nav-item">
+								<NavLink
+									exact
+									to="/posts"
+									className="nav-link"
+									activeClassName="active"
 								>
-									Sign out
+									Posts
+								</NavLink>
+							</li>
+							<li className="nav-item dropdown">
+								<button
+									className="nav-link btn btn-link dropdown-toggle"
+									id="navbarDropdown"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+								>
+									{user.username}
 								</button>
-							</div>
-						</li>
+								<div className="dropdown-menu dropdown-menu-right">
+									<button
+										className="dropdown-item"
+										type="button"
+										onClick={signOut}
+									>
+										Sign out
+									</button>
+								</div>
+							</li>
+						</>
 					) : (
 						<>
 							<li className="nav-item">
