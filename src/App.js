@@ -5,10 +5,10 @@ import Bus from './utils/Bus';
 import BootstrapSpinner from './components/BootstrapSpinner';
 import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
-import Posts from './components/Posts';
-import Post from './components/Post';
-import SignUpForm from './components/SignUpForm';
-import SignInForm from './components/SignInForm';
+import PostsPage from './pages/PostsPage';
+import PostPage from './pages/PostPage';
+import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
 import './App.css';
 
 function App() {
@@ -64,56 +64,16 @@ function App() {
 						<Redirect to="/posts" />
 					</Route>
 					<Route exact path="/posts">
-						{user ? (
-							<div className="container">
-								<div className="row justify-content-center">
-									<div className="col-md-8">
-										<Posts user={user} />
-									</div>
-								</div>
-							</div>
-						) : (
-							<Redirect to="/sign-in" />
-						)}
+						{user ? <PostsPage user={user} /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/posts/:postId">
-						{user ? (
-							<div className="container">
-								<div className="row justify-content-center">
-									<div className="col-md-8 position-relative">
-										<Post user={user} />
-									</div>
-								</div>
-							</div>
-						) : (
-							<Redirect to="/sign-in" />
-						)}
+						{user ? <PostPage user={user} /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/sign-up">
-						{user ? (
-							<Redirect to="/posts" />
-						) : (
-							<div className="container">
-								<div className="row justify-content-center">
-									<div className="col-md-6">
-										<SignUpForm />
-									</div>
-								</div>
-							</div>
-						)}
+						{user ? <Redirect to="/posts" /> : <SignUpPage />}
 					</Route>
 					<Route exact path="/sign-in">
-						{user ? (
-							<Redirect to="posts" />
-						) : (
-							<div className="container">
-								<div className="row justify-content-center">
-									<div className="col-md-6">
-										<SignInForm setUser={setUser} />
-									</div>
-								</div>
-							</div>
-						)}
+						{user ? <Redirect to="posts" /> : <SignInPage setUser={setUser} />}
 					</Route>
 				</Switch>
 			</main>
