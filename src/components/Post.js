@@ -79,7 +79,7 @@ function Post({ user }) {
 
 	async function handlePostCommentDelete(postCommentId) {
 		const deletedPostComment = await deletePostComment(postId, postCommentId);
-		if (isMounted && deletedPostComment) {
+		if (isMounted && deletedPostComment._id) {
 			setPostWithComments((prevPostWithComments) => ({
 				...prevPostWithComments,
 				comments: prevPostWithComments.comments.filter(
