@@ -64,40 +64,56 @@ function App() {
 						<Redirect to="/posts" />
 					</Route>
 					<Route exact path="/posts">
-						<div className="container">
-							<div className="row justify-content-center">
-								<div className="col-md-8">
-									<Posts user={user} />
+						{user ? (
+							<div className="container">
+								<div className="row justify-content-center">
+									<div className="col-md-8">
+										<Posts user={user} />
+									</div>
 								</div>
 							</div>
-						</div>
+						) : (
+							<Redirect to="/sign-in" />
+						)}
 					</Route>
 					<Route exact path="/posts/:postId">
-						<div className="container">
-							<div className="row justify-content-center">
-								<div className="col-md-8 position-relative">
-									<Post user={user} />
+						{user ? (
+							<div className="container">
+								<div className="row justify-content-center">
+									<div className="col-md-8 position-relative">
+										<Post user={user} />
+									</div>
 								</div>
 							</div>
-						</div>
+						) : (
+							<Redirect to="/sign-in" />
+						)}
 					</Route>
 					<Route exact path="/sign-up">
-						<div className="container">
-							<div className="row justify-content-center">
-								<div className="col-md-6">
-									<SignUpForm />
+						{user ? (
+							<Redirect to="/posts" />
+						) : (
+							<div className="container">
+								<div className="row justify-content-center">
+									<div className="col-md-6">
+										<SignUpForm />
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 					</Route>
 					<Route exact path="/sign-in">
-						<div className="container">
-							<div className="row justify-content-center">
-								<div className="col-md-6">
-									<SignInForm setUser={setUser} />
+						{user ? (
+							<Redirect to="posts" />
+						) : (
+							<div className="container">
+								<div className="row justify-content-center">
+									<div className="col-md-6">
+										<SignInForm setUser={setUser} />
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 					</Route>
 				</Switch>
 			</main>
