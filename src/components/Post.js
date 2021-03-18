@@ -64,10 +64,12 @@ function Post({ user }) {
 
 	async function handleUpdatePostPublishedBtnClick(postWithComments) {
 		const updatedPost = await putPostPublished(postWithComments);
-		setPostWithComments((prevPostWithComments) => ({
-			...prevPostWithComments,
-			published: updatedPost.published,
-		}));
+		if (isMounted) {
+			setPostWithComments((prevPostWithComments) => ({
+				...prevPostWithComments,
+				published: updatedPost.published,
+			}));
+		}
 	}
 
 	useEffect(() => {
