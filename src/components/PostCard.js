@@ -1,13 +1,20 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
-import useIsLoading from '../lib/useIsLoading';
+import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
 function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
-	const [updatePostPublished, isUpdatingPostPublished] = useIsLoading(
-		handlePostPublishedUpdate
-	);
+	const isMounted = useIsMounted();
+
+	const [isUpdatingPostPublished, setIsUpdatingPostPublished] = useState(false);
+
+	async function handleLoadingBtnClick() {
+		setIsUpdatingPostPublished(true);
+		await handlePostPublishedUpdate(postWithComments);
+		isMounted && setIsUpdatingPostPublished(false);
+	}
 
 	return (
 		<div className="card mb-2">
@@ -30,7 +37,7 @@ function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
 							text={postWithComments.published ? 'Unpublish' : 'Publish'}
 							isLoading={isUpdatingPostPublished}
 							loadingText={'Updating...'}
-							onClick={() => updatePostPublished(postWithComments)}
+							onClick={handleLoadingBtnClick}
 						/>
 					)}
 				</div>

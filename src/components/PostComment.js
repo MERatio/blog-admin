@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import format from 'date-fns/format';
-import useIsLoading from '../lib/useIsLoading';
+import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
 function PostComment({ postComment, handlePostCommentDelete }) {
-	const [deletePostComment, isDeletingPostComment] = useIsLoading(
-		handlePostCommentDelete
-	);
+	const isMounted = useIsMounted();
+
+	const [isDeletingPostComment, setIsDeletingPostComment] = useState(false);
+
+	async function handleLoadingBtnClick() {
+		setIsDeletingPostComment(true);
+		await handlePostCommentDelete(postComment._id);
+		isMounted && setIsDeletingPostComment(false);
+	}
 
 	return (
 		<li className="list-group-item d-flex justify-content-between">
@@ -25,7 +32,7 @@ function PostComment({ postComment, handlePostCommentDelete }) {
 					text={'Delete'}
 					isLoading={isDeletingPostComment}
 					loadingText={'Deleting...'}
-					onClick={() => deletePostComment(postComment._id)}
+					onClick={handleLoadingBtnClick}
 				/>
 			</div>
 		</li>

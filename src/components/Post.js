@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
-import useIsLoading from '../lib/useIsLoading';
 import {
 	getData,
 	putPostPublished,
@@ -18,7 +17,10 @@ function Post({ user }) {
 	const history = useHistory();
 
 	const isMounted = useIsMounted();
-	const [getPost, isGettingPost] = useIsLoading(fetchAndSetPostWithComments);
+
+	const [isFetchingPostWithComments, setIsFetchingPostWithComments] = useState(
+		false
+	);
 
 	const [postWithComments, setPostWithComments] = useState({});
 
@@ -39,7 +41,7 @@ function Post({ user }) {
 		}
 	}
 
-	async function fetchAndSetPostWithComments(isMounted, postId) {
+	async function fetchAndSetPostWithComments() {
 		async function fetchPost(postId) {
 			try {
 				const data = await getData(
@@ -61,8 +63,10 @@ function Post({ user }) {
 		}
 
 		if (isMounted) {
+			setIsFetchingPostWithComments(true);
 			const post = await fetchPost(postId);
 			const postComments = await fetchPostComments(postId);
+			setIsFetchingPostWithComments(false);
 			setPostWithComments({ ...post, comments: postComments });
 		}
 	}
@@ -90,11 +94,11 @@ function Post({ user }) {
 	}
 
 	useEffect(() => {
-		getPost(isMounted, postId);
+		fetchAndSetPostWithComments();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isMounted, postId]);
+	}, [isMounted]);
 
-	return isGettingPost ? (
+	return isFetchingPostWithComments ? (
 		<div className="bootstrap-spinner-container">
 			<BootstrapSpinner type={'border'} size={'2em'} />
 		</div>
