@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
-function UpdatePostPublishedBtn({ type, text, isUpdating, onClick }) {
-	return isUpdating ? (
+function LoadingBtn({ type, text, isLoading, loadingText, onClick }) {
+	return isLoading ? (
 		<button type="button" className={`btn btn-${type}`} disabled>
 			<span
 				className="spinner-border spinner-border-sm"
 				role="status"
 				aria-hidden="true"
 			></span>
-			Updating...
+			{loadingText}
 		</button>
 	) : (
 		<button type="button" className={`btn btn-${type}`} onClick={onClick}>
@@ -17,11 +17,12 @@ function UpdatePostPublishedBtn({ type, text, isUpdating, onClick }) {
 	);
 }
 
-UpdatePostPublishedBtn.propTypes = {
+LoadingBtn.propTypes = {
 	type: PropTypes.string.isRequired,
 	text: PropTypes.string.isRequired,
-	isUpdating: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired,
+	loadingText: PropTypes.string.isRequired,
 	onClick: PropTypes.func.isRequired,
 };
 
-export default UpdatePostPublishedBtn;
+export default LoadingBtn;

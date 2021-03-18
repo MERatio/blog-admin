@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
 import useIsLoading from '../lib/useIsLoading';
-import UpdatePostPublishedBtn from './UpdatePostPublishedBtn';
+import LoadingBtn from './LoadingBtn';
 
 function PostCard({
 	user,
@@ -29,10 +29,11 @@ function PostCard({
 				</div>
 				<div>
 					{user && (
-						<UpdatePostPublishedBtn
+						<LoadingBtn
 							type={postWithComments.published ? 'danger' : 'warning'}
 							text={postWithComments.published ? 'Unpublish' : 'Publish'}
-							isUpdating={isUpdatingPostPublished}
+							isLoading={isUpdatingPostPublished}
+							loadingText={'Updating...'}
 							onClick={() => updatePostPublished(postWithComments)}
 						/>
 					)}
