@@ -67,7 +67,7 @@ function Posts({ user }) {
 
 	async function handlePostPublishedUpdate(postWithComments) {
 		const updatedPost = await putPostPublished(postWithComments);
-		if (isMounted) {
+		if (isMounted && updatedPost.id) {
 			setPostsWithComments((prevPostsWithComments) => {
 				return prevPostsWithComments.map((prevPostWithComments) => {
 					if (prevPostWithComments._id !== postWithComments._id) {
