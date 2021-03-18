@@ -67,18 +67,20 @@ function Posts({ user }) {
 
 	async function handleUpdatePostPublishedBtnClick(postWithComments) {
 		const updatedPost = await putPostPublished(postWithComments);
-		setPostsWithComments((prevPostsWithComments) => {
-			return prevPostsWithComments.map((prevPostWithComments) => {
-				if (prevPostWithComments._id !== postWithComments._id) {
-					return prevPostWithComments;
-				} else {
-					return {
-						...prevPostWithComments,
-						published: updatedPost.published,
-					};
-				}
+		if (isMounted) {
+			setPostsWithComments((prevPostsWithComments) => {
+				return prevPostsWithComments.map((prevPostWithComments) => {
+					if (prevPostWithComments._id !== postWithComments._id) {
+						return prevPostWithComments;
+					} else {
+						return {
+							...prevPostWithComments,
+							published: updatedPost.published,
+						};
+					}
+				});
 			});
-		});
+		}
 	}
 
 	useEffect(() => {
