@@ -4,13 +4,9 @@ import format from 'date-fns/format';
 import useIsLoading from '../lib/useIsLoading';
 import LoadingBtn from './LoadingBtn';
 
-function PostCard({
-	user,
-	postWithComments,
-	handleUpdatePostPublishedBtnClick,
-}) {
+function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
 	const [updatePostPublished, isUpdatingPostPublished] = useIsLoading(
-		handleUpdatePostPublishedBtnClick
+		handlePostPublishedUpdate
 	);
 
 	return (
@@ -52,7 +48,7 @@ function PostCard({
 PostCard.propTypes = {
 	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
 	postWithComments: PropTypes.object.isRequired,
-	handleUpdatePostPublishedBtnClick: PropTypes.func.isRequired,
+	handlePostPublishedUpdate: PropTypes.func.isRequired,
 };
 
 export default PostCard;

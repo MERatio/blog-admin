@@ -67,7 +67,7 @@ function Post({ user }) {
 		}
 	}
 
-	async function handleUpdatePostPublishedBtnClick(postWithComments) {
+	async function handlePostPublishedUpdate(postWithComments) {
 		const updatedPost = await putPostPublished(postWithComments);
 		if (isMounted) {
 			setPostWithComments((prevPostWithComments) => ({
@@ -103,7 +103,7 @@ function Post({ user }) {
 			<PostCard
 				user={user}
 				postWithComments={postWithComments}
-				handleUpdatePostPublishedBtnClick={handleUpdatePostPublishedBtnClick}
+				handlePostPublishedUpdate={handlePostPublishedUpdate}
 			/>
 			<PostComments
 				postComments={postWithComments.comments}

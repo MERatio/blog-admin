@@ -1,17 +1,13 @@
 import PropTypes from 'prop-types';
 import PostCard from './PostCard';
 
-function PostsCards({
-	user,
-	postsWithComments,
-	handleUpdatePostPublishedBtnClick,
-}) {
+function PostsCards({ user, postsWithComments, handlePostPublishedUpdate }) {
 	const Postcards = postsWithComments.map((postWithComments) => (
 		<PostCard
 			key={postWithComments._id}
 			user={user}
 			postWithComments={postWithComments}
-			handleUpdatePostPublishedBtnClick={handleUpdatePostPublishedBtnClick}
+			handlePostPublishedUpdate={handlePostPublishedUpdate}
 		/>
 	));
 
@@ -21,7 +17,7 @@ function PostsCards({
 PostsCards.propTypes = {
 	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
 	postsWithComments: PropTypes.array.isRequired,
-	handleUpdatePostPublishedBtnClick: PropTypes.func.isRequired,
+	handlePostPublishedUpdate: PropTypes.func.isRequired,
 };
 
 export default PostsCards;
