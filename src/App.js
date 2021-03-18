@@ -34,7 +34,12 @@ function App() {
 			const data = await getData(
 				`${process.env.REACT_APP_API_URL}/users/current-user`
 			);
-			setUser(data.user);
+			if (data.user && data.user.admin) {
+				setUser(data.user);
+			} else {
+				localStorage.removeItem('jwt');
+				setUser(false);
+			}
 		}
 		fetchAndSetUser();
 		const intervalId = setInterval(fetchAndSetUser, 30000);
