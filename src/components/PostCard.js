@@ -38,6 +38,9 @@ function PostCard({ postWithComments, handlePostPublishedUpdate }) {
 						loadingText={'Updating...'}
 						onClick={handleLoadingBtnClick}
 					/>
+					<Link to={`/posts/${postWithComments._id}/edit`} className="ml-3">
+						Edit
+					</Link>
 				</div>
 			</div>
 			<div className="card-body">

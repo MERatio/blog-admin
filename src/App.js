@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
 import PostsPage from './pages/PostsPage';
 import NewPostPage from './pages/NewPostPage';
+import EditPostPage from './pages/EditPostPage';
 import PostPage from './pages/PostPage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
@@ -101,6 +102,9 @@ function App() {
 					</Route>
 					<Route exact path="/posts/:postId">
 						{user ? <PostPage /> : <Redirect to="/sign-in" />}
+					</Route>
+					<Route exact path="/posts/:postId/edit">
+						{user ? <EditPostPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/sign-up">
 						{user ? <Redirect to="/posts" /> : <SignUpPage />}
