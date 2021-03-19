@@ -34,6 +34,7 @@ function PostForm({ action, state, onInputChange, onSubmit, isSubmitting }) {
 					className="form-check-input"
 					id="published"
 					name="published"
+					checked={state.published}
 					onChange={onInputChange}
 				/>
 				<label className="form-check-label" htmlFor="published">
