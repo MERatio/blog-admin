@@ -1,32 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import Bus from '../utils/Bus';
+import PropTypes from 'prop-types';
 
-function Flashes() {
-	const [flashes, setFlashes] = useState([]);
-
-	function deleteFlash(flashId) {
-		const newFlashes = flashes.filter((flash) => flash.id !== flashId);
-		setFlashes(newFlashes);
-	}
-
-	useEffect(() => {
-		Bus.addListener('flashes', (flashes) => {
-			const flashesWithId = flashes.map((flash) => ({
-				...flash,
-				id: nanoid(),
-			}));
-			setFlashes(flashesWithId);
-		});
-	}, []);
-
-	useEffect(() => {
-		if (flashes.length > 0) {
-			const timeoutId = setTimeout(() => setFlashes([]), 4000);
-			return () => clearTimeout(timeoutId);
-		}
-	}, [flashes]);
-
+function Flashes({ flashes, deleteFlash }) {
 	return (
 		<>
 			{flashes.map((flash) => (
@@ -49,5 +23,10 @@ function Flashes() {
 		</>
 	);
 }
+
+Flashes.propTypes = {
+	flashes: PropTypes.array.isRequired,
+	deleteFlash: PropTypes.func.isRequired,
+};
 
 export default Flashes;
