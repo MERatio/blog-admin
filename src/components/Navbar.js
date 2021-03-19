@@ -32,6 +32,16 @@ function Navbar({ user, signOut }) {
 									Posts
 								</NavLink>
 							</li>
+							<li className="nav-item">
+								<NavLink
+									exact
+									to="/posts/new"
+									className="nav-link"
+									activeClassName="active"
+								>
+									Add a new post
+								</NavLink>
+							</li>
 							<li className="nav-item dropdown">
 								<button
 									className="nav-link btn btn-link dropdown-toggle"
