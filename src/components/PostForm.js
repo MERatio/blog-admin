@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import SubmitBtn from './SubmitBtn';
 
-function PostForm({ action, state, onInputChange, onSubmit, isSubmitting }) {
+function PostForm({
+	state,
+	onInputChange,
+	onSubmit,
+	isSubmitting,
+	submitBtnText,
+}) {
 	return (
 		<form onSubmit={onSubmit}>
 			<div className="form-group">
@@ -41,17 +47,17 @@ function PostForm({ action, state, onInputChange, onSubmit, isSubmitting }) {
 					Published?
 				</label>
 			</div>
-			<SubmitBtn text={'Submit'} isSubmitting={isSubmitting} />
+			<SubmitBtn text={submitBtnText} isSubmitting={isSubmitting} />
 		</form>
 	);
 }
 
 PostForm.propTypes = {
-	action: PropTypes.string.isRequired,
 	state: PropTypes.object.isRequired,
 	onInputChange: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	isSubmitting: PropTypes.bool.isRequired,
+	submitBtnText: PropTypes.string.isRequired,
 };
 
 export default PostForm;
