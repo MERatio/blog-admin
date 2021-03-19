@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
 import {
@@ -12,7 +11,7 @@ import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostCard from './PostCard';
 import PostComments from './PostComments';
 
-function Post({ user }) {
+function Post() {
 	const { postId } = useParams();
 	const history = useHistory();
 
@@ -105,7 +104,6 @@ function Post({ user }) {
 	) : postWithComments._id ? (
 		<section className="mb-4">
 			<PostCard
-				user={user}
 				postWithComments={postWithComments}
 				handlePostPublishedUpdate={handlePostPublishedUpdate}
 			/>
@@ -116,9 +114,5 @@ function Post({ user }) {
 		</section>
 	) : null;
 }
-
-Post.propTypes = {
-	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
-};
 
 export default Post;

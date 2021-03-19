@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
-function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
+function PostCard({ postWithComments, handlePostPublishedUpdate }) {
 	const isMounted = useIsMounted();
 
 	const [isUpdatingPostPublished, setIsUpdatingPostPublished] = useState(false);
@@ -31,15 +31,13 @@ function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
 					</p>
 				</div>
 				<div>
-					{user && (
-						<LoadingBtn
-							type={postWithComments.published ? 'danger' : 'warning'}
-							text={postWithComments.published ? 'Unpublish' : 'Publish'}
-							isLoading={isUpdatingPostPublished}
-							loadingText={'Updating...'}
-							onClick={handleLoadingBtnClick}
-						/>
-					)}
+					<LoadingBtn
+						type={postWithComments.published ? 'danger' : 'warning'}
+						text={postWithComments.published ? 'Unpublish' : 'Publish'}
+						isLoading={isUpdatingPostPublished}
+						loadingText={'Updating...'}
+						onClick={handleLoadingBtnClick}
+					/>
 				</div>
 			</div>
 			<div className="card-body">
@@ -53,7 +51,6 @@ function PostCard({ user, postWithComments, handlePostPublishedUpdate }) {
 }
 
 PostCard.propTypes = {
-	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
 	postWithComments: PropTypes.object.isRequired,
 	handlePostPublishedUpdate: PropTypes.func.isRequired,
 };

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import useIsMounted from '../lib/useIsMounted';
 import { getData, putPostPublished, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
 import PostsCards from './PostsCards';
 
-function Posts({ user }) {
+function Posts() {
 	const isMounted = useIsMounted();
 
 	const [postsWithComments, setPostsWithComments] = useState([]);
@@ -97,16 +96,11 @@ function Posts({ user }) {
 	) : (
 		<section className="position-relative">
 			<PostsCards
-				user={user}
 				postsWithComments={postsWithComments}
 				handlePostPublishedUpdate={handlePostPublishedUpdate}
 			/>
 		</section>
 	);
 }
-
-Posts.propTypes = {
-	user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
-};
 
 export default Posts;

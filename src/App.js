@@ -94,13 +94,13 @@ function App() {
 						<Redirect to="/posts" />
 					</Route>
 					<Route exact path="/posts">
-						{user ? <PostsPage user={user} /> : <Redirect to="/sign-in" />}
+						{user ? <PostsPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/posts/new">
 						{user ? <NewPostPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/posts/:postId">
-						{user ? <PostPage user={user} /> : <Redirect to="/sign-in" />}
+						{user ? <PostPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/sign-up">
 						{user ? <Redirect to="/posts" /> : <SignUpPage />}
