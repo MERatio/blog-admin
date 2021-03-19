@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function Flashes({ flashes, deleteFlash }) {
+function Flashes({ flashes, handleFlashDelete }) {
 	return (
 		<>
 			{flashes.map((flash) => (
@@ -14,7 +14,7 @@ function Flashes({ flashes, deleteFlash }) {
 						type="button"
 						className="close"
 						aria-label="Close"
-						onClick={() => deleteFlash(flash.id)}
+						onClick={() => handleFlashDelete(flash.id)}
 					>
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -26,7 +26,7 @@ function Flashes({ flashes, deleteFlash }) {
 
 Flashes.propTypes = {
 	flashes: PropTypes.array.isRequired,
-	deleteFlash: PropTypes.func.isRequired,
+	handleFlashDelete: PropTypes.func.isRequired,
 };
 
 export default Flashes;

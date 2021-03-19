@@ -27,7 +27,7 @@ function App() {
 		history.push('/');
 	}
 
-	function deleteFlash(flashId) {
+	function handleFlashDelete(flashId) {
 		const newFlashes = flashes.filter((flash) => flash.id !== flashId);
 		setFlashes(newFlashes);
 	}
@@ -78,7 +78,7 @@ function App() {
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="col-md-8">
-						<Flashes flashes={flashes} deleteFlash={deleteFlash} />
+						<Flashes flashes={flashes} handleFlashDelete={handleFlashDelete} />
 					</div>
 				</div>
 			</div>
