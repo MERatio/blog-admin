@@ -75,13 +75,18 @@ function App() {
 	) : (
 		<>
 			<Navbar user={user} signOut={signOut} />
-			<div className="container">
-				<div className="row justify-content-center">
-					<div className="col-md-8">
-						<Flashes flashes={flashes} handleFlashDelete={handleFlashDelete} />
+			{flashes.length > 0 && (
+				<div className="container">
+					<div className="row justify-content-center">
+						<div className="col-md-8">
+							<Flashes
+								flashes={flashes}
+								handleFlashDelete={handleFlashDelete}
+							/>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 			<main>
 				<Switch>
 					<Route exact path="/">
