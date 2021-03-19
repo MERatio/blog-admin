@@ -7,6 +7,7 @@ import BootstrapSpinner from './components/BootstrapSpinner';
 import Navbar from './components/Navbar';
 import Flashes from './components/Flashes';
 import PostsPage from './pages/PostsPage';
+import NewPostPage from './pages/NewPostPage';
 import PostPage from './pages/PostPage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
@@ -94,6 +95,9 @@ function App() {
 					</Route>
 					<Route exact path="/posts">
 						{user ? <PostsPage user={user} /> : <Redirect to="/sign-in" />}
+					</Route>
+					<Route exact path="/posts/new">
+						{user ? <NewPostPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/posts/:postId">
 						{user ? <PostPage user={user} /> : <Redirect to="/sign-in" />}
