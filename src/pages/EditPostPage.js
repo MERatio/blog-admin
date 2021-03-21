@@ -39,11 +39,11 @@ function EditPostPage() {
 			if (data.err) {
 				handleExpressErr(data.err);
 			} else if (data.errors) {
-				const { title, body } = data.post;
-				isMounted && setState({ title, body });
+				const { title, body, published } = data.post;
+				isMounted && setState({ title, body, published });
 				window.flashes(data.errors);
 			} else {
-				setState({ title: '', body: '' });
+				setState({ title: '', body: '', published: false });
 				history.push('/');
 				window.flashes([{ msg: 'Post successfully updated', type: 'success' }]);
 			}
