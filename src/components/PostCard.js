@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
-function PostCard({ post, handlePostPublishedUpdate }) {
+function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 	const isMounted = useIsMounted();
 
 	const [isUpdatingPostPublished, setIsUpdatingPostPublished] = useState(false);
@@ -44,7 +44,7 @@ function PostCard({ post, handlePostPublishedUpdate }) {
 			<div className="card-body">
 				<p className="card-text">{post.body}</p>
 				<Link to={`/posts/${post._id}`} className="card-link">
-					{post.comments.length} comments
+					{post.comments ? post.comments.length : postCommentsLength} comments
 				</Link>
 			</div>
 		</div>
@@ -54,6 +54,7 @@ function PostCard({ post, handlePostPublishedUpdate }) {
 PostCard.propTypes = {
 	post: PropTypes.object.isRequired,
 	handlePostPublishedUpdate: PropTypes.func.isRequired,
+	postCommentsLength: PropTypes.number,
 };
 
 export default PostCard;
