@@ -17,11 +17,9 @@ function Post() {
 
 	const isMounted = useIsMounted();
 
-	const [isFetchingPostWithComments, setIsFetchingPostWithComments] = useState(
-		false
-	);
+	const [isFetchingPost, setIsFetchingPost] = useState(false);
 
-	const [postWithComments, setPostWithComments] = useState({});
+	const [post, setPost] = useState({});
 
 	async function fetchPostComments(postId) {
 		try {
@@ -40,7 +38,7 @@ function Post() {
 		}
 	}
 
-	async function fetchAndSetPostWithComments() {
+	async function fetchAndSetPost() {
 		async function fetchPost(postId) {
 			try {
 				const data = await getData(
@@ -62,19 +60,19 @@ function Post() {
 		}
 
 		if (isMounted) {
-			setIsFetchingPostWithComments(true);
+			setIsFetchingPost(true);
 			const post = await fetchPost(postId);
 			const postComments = await fetchPostComments(postId);
-			setIsFetchingPostWithComments(false);
-			setPostWithComments({ ...post, comments: postComments });
+			setIsFetchingPost(false);
+			setPost({ ...post, comments: postComments });
 		}
 	}
 
-	async function handlePostPublishedUpdate(postWithComments) {
-		const updatedPost = await putPostPublished(postWithComments);
+	async function handlePostPublishedUpdate(post) {
+		const updatedPost = await putPostPublished(post);
 		if (isMounted && updatedPost._id) {
-			setPostWithComments((prevPostWithComments) => ({
-				...prevPostWithComments,
+			setPost((prevPost) => ({
+				...prevPost,
 				published: updatedPost.published,
 			}));
 		}
@@ -83,9 +81,9 @@ function Post() {
 	async function handlePostCommentDelete(postCommentId) {
 		const deletedPostComment = await deletePostComment(postId, postCommentId);
 		if (isMounted && deletedPostComment._id) {
-			setPostWithComments((prevPostWithComments) => ({
-				...prevPostWithComments,
-				comments: prevPostWithComments.comments.filter(
+			setPost((prevPost) => ({
+				...prevPost,
+				comments: prevPost.comments.filter(
 					(comment) => comment._id !== postCommentId
 				),
 			}));
@@ -93,22 +91,22 @@ function Post() {
 	}
 
 	useEffect(() => {
-		fetchAndSetPostWithComments();
+		fetchAndSetPost();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isMounted]);
 
-	return isFetchingPostWithComments ? (
+	return isFetchingPost ? (
 		<div className="bootstrap-spinner-container">
 			<BootstrapSpinner type={'border'} size={'2em'} />
 		</div>
-	) : postWithComments._id ? (
+	) : post._id ? (
 		<section className="mb-4">
 			<PostCard
-				postWithComments={postWithComments}
+				post={post}
 				handlePostPublishedUpdate={handlePostPublishedUpdate}
 			/>
 			<PostComments
-				postComments={postWithComments.comments}
+				postComments={post.comments}
 				handlePostCommentDelete={handlePostCommentDelete}
 			/>
 		</section>

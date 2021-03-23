@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import PostCard from './PostCard';
 
-function PostsCards({ postsWithComments, handlePostPublishedUpdate }) {
-	const Postcards = postsWithComments.map((postWithComments) => (
+function PostsCards({ posts, handlePostPublishedUpdate }) {
+	const Postcards = posts.map((post) => (
 		<PostCard
-			key={postWithComments._id}
-			postWithComments={postWithComments}
+			key={post._id}
+			post={post}
 			handlePostPublishedUpdate={handlePostPublishedUpdate}
 		/>
 	));
@@ -14,7 +14,7 @@ function PostsCards({ postsWithComments, handlePostPublishedUpdate }) {
 }
 
 PostsCards.propTypes = {
-	postsWithComments: PropTypes.array.isRequired,
+	posts: PropTypes.array.isRequired,
 	handlePostPublishedUpdate: PropTypes.func.isRequired,
 };
 

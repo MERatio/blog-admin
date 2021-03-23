@@ -7,23 +7,20 @@ import PostsCards from './PostsCards';
 function Posts() {
 	const isMounted = useIsMounted();
 
-	const [postsWithComments, setPostsWithComments] = useState([]);
+	const [posts, setPosts] = useState([]);
 
-	const [
-		isFetchingPostsWithComments,
-		setIsFetchingPostsWithComments,
-	] = useState(false);
+	const [isFetchingPosts, setIsFetchingPosts] = useState(false);
 
-	async function handlePostPublishedUpdate(postWithComments) {
-		const updatedPost = await putPostPublished(postWithComments);
+	async function handlePostPublishedUpdate(posts) {
+		const updatedPost = await putPostPublished(posts);
 		if (isMounted && updatedPost._id) {
-			setPostsWithComments((prevPostsWithComments) => {
-				return prevPostsWithComments.map((prevPostWithComments) => {
-					if (prevPostWithComments._id !== postWithComments._id) {
-						return prevPostWithComments;
+			setPosts((prevPosts) => {
+				return prevPosts.map((prevPost) => {
+					if (prevPost._id !== posts._id) {
+						return prevPost;
 					} else {
 						return {
-							...prevPostWithComments,
+							...prevPost,
 							published: updatedPost.published,
 						};
 					}
@@ -33,7 +30,7 @@ function Posts() {
 	}
 
 	useEffect(() => {
-		async function fetchAndSetPostsWithComments() {
+		async function fetchAndSetPosts() {
 			async function fetchPosts() {
 				try {
 					const data = await getData(`${process.env.REACT_APP_API_URL}/posts`);
@@ -49,9 +46,9 @@ function Posts() {
 				}
 			}
 
-			async function fetchAndAttachPostsToComments(posts) {
+			async function fetchAndAttachCommentsToPosts(posts) {
 				try {
-					const postsWithComments = await Promise.all(
+					return await Promise.all(
 						posts.map(async (post) => {
 							try {
 								const data = await getData(
@@ -69,7 +66,6 @@ function Posts() {
 							}
 						})
 					);
-					return postsWithComments;
 				} catch (err) {
 					window.flashes([
 						{ msg: 'Something went wrong, please try again later.' },
@@ -78,25 +74,25 @@ function Posts() {
 			}
 
 			if (isMounted) {
-				setIsFetchingPostsWithComments(true);
+				setIsFetchingPosts(true);
 				const posts = await fetchPosts();
-				const newPostsWithComments = await fetchAndAttachPostsToComments(posts);
-				setIsFetchingPostsWithComments(false);
-				setPostsWithComments(newPostsWithComments);
+				const newPosts = await fetchAndAttachCommentsToPosts(posts);
+				setIsFetchingPosts(false);
+				setPosts(newPosts);
 			}
 		}
 
-		fetchAndSetPostsWithComments();
+		fetchAndSetPosts();
 	}, [isMounted]);
 
-	return isFetchingPostsWithComments ? (
+	return isFetchingPosts ? (
 		<div className="bootstrap-spinner-container">
 			<BootstrapSpinner type={'border'} size={'2em'} />
 		</div>
 	) : (
 		<section className="position-relative">
 			<PostsCards
-				postsWithComments={postsWithComments}
+				posts={posts}
 				handlePostPublishedUpdate={handlePostPublishedUpdate}
 			/>
 		</section>

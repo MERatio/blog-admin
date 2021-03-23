@@ -5,14 +5,14 @@ import format from 'date-fns/format';
 import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
-function PostCard({ postWithComments, handlePostPublishedUpdate }) {
+function PostCard({ post, handlePostPublishedUpdate }) {
 	const isMounted = useIsMounted();
 
 	const [isUpdatingPostPublished, setIsUpdatingPostPublished] = useState(false);
 
 	async function handleLoadingBtnClick() {
 		setIsUpdatingPostPublished(true);
-		await handlePostPublishedUpdate(postWithComments);
+		await handlePostPublishedUpdate(post);
 		isMounted && setIsUpdatingPostPublished(false);
 	}
 
@@ -20,33 +20,31 @@ function PostCard({ postWithComments, handlePostPublishedUpdate }) {
 		<div className="card mb-2">
 			<div className="card-header d-flex justify-content-between">
 				<div>
-					<h5 className="card-title">{postWithComments.title}</h5>
+					<h5 className="card-title">{post.title}</h5>
 					<p className="card-subtitle mb-2">
-						{postWithComments.author.firstName +
-							' ' +
-							postWithComments.author.lastName}
+						{post.author.firstName + ' ' + post.author.lastName}
 					</p>
 					<p className="card-subtitle">
-						{format(new Date(postWithComments.createdAt), 'PPpp')}
+						{format(new Date(post.createdAt), 'PPpp')}
 					</p>
 				</div>
 				<div>
 					<LoadingBtn
-						type={postWithComments.published ? 'danger' : 'warning'}
-						text={postWithComments.published ? 'Unpublish' : 'Publish'}
+						type={post.published ? 'danger' : 'warning'}
+						text={post.published ? 'Unpublish' : 'Publish'}
 						isLoading={isUpdatingPostPublished}
 						loadingText={'Updating...'}
 						onClick={handleLoadingBtnClick}
 					/>
-					<Link to={`/posts/${postWithComments._id}/edit`} className="ml-3">
+					<Link to={`/posts/${post._id}/edit`} className="ml-3">
 						Edit
 					</Link>
 				</div>
 			</div>
 			<div className="card-body">
-				<p className="card-text">{postWithComments.body}</p>
-				<Link to={`/posts/${postWithComments._id}`} className="card-link">
-					{postWithComments.comments.length} comments
+				<p className="card-text">{post.body}</p>
+				<Link to={`/posts/${post._id}`} className="card-link">
+					{post.comments.length} comments
 				</Link>
 			</div>
 		</div>
@@ -54,7 +52,7 @@ function PostCard({ postWithComments, handlePostPublishedUpdate }) {
 }
 
 PostCard.propTypes = {
-	postWithComments: PropTypes.object.isRequired,
+	post: PropTypes.object.isRequired,
 	handlePostPublishedUpdate: PropTypes.func.isRequired,
 };
 
