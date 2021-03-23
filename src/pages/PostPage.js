@@ -53,7 +53,7 @@ function PostPage() {
 				<div className="col-md-8 position-relative">
 					<Post postId={postId} postCommentsLength={postComments.length} />
 					{isFetchingPostComments ? (
-						<div className="bootstrap-spinner-container">
+						<div className="position-relative" style={{ minHeight: '10em' }}>
 							<BootstrapSpinner type={'border'} size={'2em'} />
 						</div>
 					) : (
