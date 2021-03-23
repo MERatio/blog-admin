@@ -14,42 +14,36 @@ function PostPage() {
 	const [isFetchingPostComments, setIsFetchingPostComments] = useState(false);
 	const [postComments, setPostComments] = useState([]);
 
-	async function handlePostCommentDelete(postCommentId) {
-		const deletedPostComment = await deletePostComment(postId, postCommentId);
-		if (isMounted && deletedPostComment._id) {
-			setPostComments((prevPostComments) =>
-				prevPostComments.filter(
-					(prevPostComment) => prevPostComment._id !== postCommentId
-				)
-			);
+	async function fetchAndSetPostComments(postId) {
+		async function fetchPostComments(postId) {
+			try {
+				const data = await getData(
+					`${process.env.REACT_APP_API_URL}/posts/${postId}/comments`
+				);
+				if (data.err) {
+					handleExpressErr(data.err);
+				} else {
+					return data.comments;
+				}
+			} catch (err) {
+				window.flashes([
+					{ msg: 'Something went wrong, please try again later.' },
+				]);
+			}
 		}
+
+		setIsFetchingPostComments(true);
+		const postComments = await fetchPostComments(postId);
+		setIsFetchingPostComments(false);
+		setPostComments(postComments);
+	}
+
+	async function handlePostCommentDelete(postId, postCommentId) {
+		await deletePostComment(postId, postCommentId);
+		await fetchAndSetPostComments(postId);
 	}
 
 	useEffect(() => {
-		async function fetchAndSetPostComments(postId) {
-			async function fetchPostComments(postId) {
-				try {
-					const data = await getData(
-						`${process.env.REACT_APP_API_URL}/posts/${postId}/comments`
-					);
-					if (data.err) {
-						handleExpressErr(data.err);
-					} else {
-						return data.comments;
-					}
-				} catch (err) {
-					window.flashes([
-						{ msg: 'Something went wrong, please try again later.' },
-					]);
-				}
-			}
-
-			setIsFetchingPostComments(true);
-			const postComments = await fetchPostComments(postId);
-			setIsFetchingPostComments(false);
-			setPostComments(postComments);
-		}
-
 		isMounted && fetchAndSetPostComments(postId);
 	}, [isMounted, postId]);
 

@@ -11,7 +11,7 @@ function PostComment({ postComment, handlePostCommentDelete }) {
 
 	async function handleLoadingBtnClick() {
 		setIsDeletingPostComment(true);
-		await handlePostCommentDelete(postComment._id);
+		await handlePostCommentDelete(postComment.post._id, postComment._id);
 		isMounted && setIsDeletingPostComment(false);
 	}
 
