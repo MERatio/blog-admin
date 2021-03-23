@@ -18,7 +18,7 @@ function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 	}
 
 	return (
-		<div className="card mb-2">
+		<article className="card mb-2">
 			<div className="card-header d-flex justify-content-between">
 				<div>
 					<h5 className="card-title">{post.title}</h5>
@@ -52,7 +52,7 @@ function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 					)}
 				</Link>
 			</div>
-		</div>
+		</article>
 	);
 }
 

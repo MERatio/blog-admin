@@ -88,13 +88,15 @@ function EditPostPage() {
 		<div className="container">
 			<div className="row justify-content-center">
 				<div className="col-md-8">
-					<PostForm
-						state={state}
-						onInputChange={handleInputChange}
-						onSubmit={handleFormSubmit}
-						isSubmitting={isSubmitting}
-						submitBtnText={'Update'}
-					/>
+					<section>
+						<PostForm
+							state={state}
+							onInputChange={handleInputChange}
+							onSubmit={handleFormSubmit}
+							isSubmitting={isSubmitting}
+							submitBtnText={'Update'}
+						/>
+					</section>
 				</div>
 			</div>
 		</div>

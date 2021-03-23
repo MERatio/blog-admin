@@ -51,17 +51,19 @@ function PostPage() {
 		<div className="container">
 			<div className="row justify-content-center">
 				<div className="col-md-8 position-relative">
-					<Post postId={postId} postCommentsLength={postComments.length} />
-					{isFetchingPostComments ? (
-						<div className="position-relative" style={{ minHeight: '10em' }}>
-							<BootstrapSpinner type={'border'} size={'2em'} />
-						</div>
-					) : (
-						<PostComments
-							postComments={postComments}
-							handlePostCommentDelete={handlePostCommentDelete}
-						/>
-					)}
+					<section>
+						<Post postId={postId} postCommentsLength={postComments.length} />
+						{isFetchingPostComments ? (
+							<div className="position-relative" style={{ minHeight: '10em' }}>
+								<BootstrapSpinner type={'border'} size={'2em'} />
+							</div>
+						) : (
+							<PostComments
+								postComments={postComments}
+								handlePostCommentDelete={handlePostCommentDelete}
+							/>
+						)}
+					</section>
 				</div>
 			</div>
 		</div>

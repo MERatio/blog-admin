@@ -90,12 +90,10 @@ function Posts() {
 			<BootstrapSpinner type={'border'} size={'2em'} />
 		</div>
 	) : (
-		<section className="position-relative">
-			<PostsCards
-				posts={posts}
-				handlePostPublishedUpdate={handlePostPublishedUpdate}
-			/>
-		</section>
+		<PostsCards
+			posts={posts}
+			handlePostPublishedUpdate={handlePostPublishedUpdate}
+		/>
 	);
 }
 
