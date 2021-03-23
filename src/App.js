@@ -107,10 +107,10 @@ function App() {
 						{user ? <EditPostPage /> : <Redirect to="/sign-in" />}
 					</Route>
 					<Route exact path="/sign-up">
-						{user ? <Redirect to="/posts" /> : <SignUpPage />}
+						{user ? <Redirect to="/" /> : <SignUpPage />}
 					</Route>
 					<Route exact path="/sign-in">
-						{user ? <Redirect to="posts" /> : <SignInPage setUser={setUser} />}
+						{user ? <Redirect to="/" /> : <SignInPage setUser={setUser} />}
 					</Route>
 				</Switch>
 			</main>
