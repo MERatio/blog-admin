@@ -81,10 +81,7 @@ function App() {
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-md-8">
-							<Flashes
-								flashes={flashes}
-								handleFlashDelete={handleFlashDelete}
-							/>
+							<Flashes flashes={flashes} onFlashDelete={handleFlashDelete} />
 						</div>
 					</div>
 				</div>
