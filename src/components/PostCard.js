@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
+import pluralize from 'pluralize';
 import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
@@ -44,7 +45,11 @@ function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 			<div className="card-body">
 				<p className="card-text">{post.body}</p>
 				<Link to={`/posts/${post._id}`} className="card-link">
-					{post.comments ? post.comments.length : postCommentsLength} comments
+					{pluralize(
+						'comments',
+						post.comments ? post.comments.length : postCommentsLength,
+						true
+					)}
 				</Link>
 			</div>
 		</div>
