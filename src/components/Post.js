@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import useIsMounted from '../lib/useIsMounted';
 import { getData, putPostPublished, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
@@ -63,5 +64,10 @@ function Post({ postId, postCommentsLength }) {
 		/>
 	) : null;
 }
+
+Post.propTypes = {
+	postId: PropTypes.string.isRequired,
+	postCommentsLength: PropTypes.number.isRequired,
+};
 
 export default Post;
