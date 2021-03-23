@@ -16,10 +16,7 @@ function Post({ postId, postCommentsLength }) {
 	async function handlePostPublishedUpdate(post) {
 		const updatedPost = await putPostPublished(post);
 		if (isMounted && updatedPost._id) {
-			setPost((prevPost) => ({
-				...prevPost,
-				published: updatedPost.published,
-			}));
+			setPost(updatedPost);
 		}
 	}
 
