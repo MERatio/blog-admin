@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useIsMounted from '../lib/useIsMounted';
 import { getData, deletePostComment, handleExpressErr } from '../lib/helpers';
 import BootstrapSpinner from '../components/BootstrapSpinner';
@@ -7,6 +7,8 @@ import Post from '../components/Post';
 import PostComments from '../components/PostComments';
 
 function PostPage() {
+	const history = useHistory();
+
 	const { postId } = useParams();
 
 	const isMounted = useIsMounted();
@@ -21,6 +23,9 @@ function PostPage() {
 					`${process.env.REACT_APP_API_URL}/posts/${postId}/comments`
 				);
 				if (data.err) {
+					if ([401, 404].includes(data.err.status)) {
+						history.push('/');
+					}
 					handleExpressErr(data.err);
 				} else {
 					return data.comments;
@@ -49,6 +54,7 @@ function PostPage() {
 
 	useEffect(() => {
 		isMounted && fetchAndSetPostComments(postId);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isMounted, postId]);
 
 	return (
