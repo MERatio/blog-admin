@@ -1,23 +1,31 @@
 async function getData(url = '') {
-	const response = await fetch(url, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-		},
-	});
-	return response.json();
+	try {
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
+		});
+		return response.json();
+	} catch (err) {
+		window.flashes([{ msg: 'Something went wrong, please try again later.' }]);
+	}
 }
 
 async function uploadData(method, url = '', data = {}) {
-	const response = await fetch(url, {
-		method,
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-		},
-		body: JSON.stringify(data),
-	});
-	return response.json();
+	try {
+		const response = await fetch(url, {
+			method,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			},
+			body: JSON.stringify(data),
+		});
+		return response.json();
+	} catch (err) {
+		window.flashes([{ msg: 'Something went wrong, please try again later.' }]);
+	}
 }
 
 async function putPostPublished(post) {
