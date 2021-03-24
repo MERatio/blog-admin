@@ -15,9 +15,16 @@ function Post({ postId, postCommentsLength }) {
 	const [post, setPost] = useState({});
 
 	async function handlePostPublishedUpdate(post) {
-		const updatedPost = await putPostPublished(post);
-		if (isMounted && updatedPost._id) {
-			setPost(updatedPost);
+		const data = await putPostPublished(post);
+		if (data.err) {
+			handleExpressErr(data.err);
+		} else if (data.errors) {
+			window.flashes(data.errors);
+		} else {
+			const updatedPost = data.post;
+			if (isMounted && updatedPost._id) {
+				setPost(updatedPost);
+			}
 		}
 	}
 

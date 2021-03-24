@@ -35,13 +35,7 @@ async function putPostPublished(post) {
 			`${process.env.REACT_APP_API_URL}/posts/${post._id}`,
 			{ ...post, published: !post.published }
 		);
-		if (data.err) {
-			handleExpressErr(data.err);
-		} else if (data.errors) {
-			window.flashes(data.errors);
-		} else {
-			return data.post;
-		}
+		return data;
 	} catch (err) {
 		window.flashes([{ msg: 'Something went wrong, please try again later.' }]);
 	}

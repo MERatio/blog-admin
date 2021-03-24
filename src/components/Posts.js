@@ -12,20 +12,27 @@ function Posts() {
 	const [isFetchingPosts, setIsFetchingPosts] = useState(false);
 
 	async function handlePostPublishedUpdate(posts) {
-		const updatedPost = await putPostPublished(posts);
-		if (isMounted && updatedPost._id) {
-			setPosts((prevPosts) => {
-				return prevPosts.map((prevPost) => {
-					if (prevPost._id !== posts._id) {
-						return prevPost;
-					} else {
-						return {
-							...prevPost,
-							published: updatedPost.published,
-						};
-					}
+		const data = await putPostPublished(posts);
+		if (data.err) {
+			handleExpressErr(data.err);
+		} else if (data.errors) {
+			window.flashes(data.errors);
+		} else {
+			const updatedPost = data.post;
+			if (isMounted && updatedPost._id) {
+				setPosts((prevPosts) => {
+					return prevPosts.map((prevPost) => {
+						if (prevPost._id !== posts._id) {
+							return prevPost;
+						} else {
+							return {
+								...prevPost,
+								published: updatedPost.published,
+							};
+						}
+					});
 				});
-			});
+			}
 		}
 	}
 
