@@ -58,12 +58,7 @@ async function deletePostComment(postId, postCommentId) {
 				},
 			}
 		);
-		const data = await response.json();
-		if (data.err) {
-			handleExpressErr(data.err);
-		} else {
-			return data.comment;
-		}
+		return response.json();
 	} catch (err) {
 		window.flashes([{ msg: 'Something went wrong, please try again later.' }]);
 	}

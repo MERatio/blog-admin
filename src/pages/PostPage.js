@@ -39,8 +39,12 @@ function PostPage() {
 	}
 
 	async function handlePostCommentDelete(postId, postCommentId) {
-		await deletePostComment(postId, postCommentId);
-		await fetchAndSetPostComments(postId);
+		const data = await deletePostComment(postId, postCommentId);
+		if (data.err) {
+			handleExpressErr(data.err);
+		} else {
+			await fetchAndSetPostComments(postId);
+		}
 	}
 
 	useEffect(() => {
