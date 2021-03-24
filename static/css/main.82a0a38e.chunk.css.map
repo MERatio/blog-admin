@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/css/BootstrapSpinner.css"],"names":[],"mappings":"AAAA,kBACC,iBAAkB,CAClB,OAAQ,CACR,QAAS,CACT,sCAAgC,CAAhC,8BACD","file":"main.82a0a38e.chunk.css","sourcesContent":[".BootstrapSpinner {\n\tposition: absolute;\n\ttop: 40%;\n\tleft: 50%;\n\ttransform: translate(-50%, -50%);\n}\n"]}
