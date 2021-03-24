@@ -1,11 +1,13 @@
 # blog-admin
 
-A frontend to:
-
-- create, read, update, publish, and unpublish posts.
-- read, and delete comments.
-
 For more information about this project visit [The Odin Project](https://www.theodinproject.com/lessons/blog-api).
+
+## Features
+
+- Admin registration
+- Admin authentication
+- Create, read, update, publish, and unpublish posts.
+- Read, and delete comments.
 
 ## Built With
 
