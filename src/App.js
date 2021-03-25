@@ -92,21 +92,21 @@ function App() {
 						<Redirect to="/posts" />
 					</Route>
 					<Route exact path="/posts">
-						{user ? <PostsPage /> : <Redirect to="/sign-in" />}
+						{user ? <PostsPage /> : <Redirect to="/auth/sign-in" />}
 					</Route>
 					<Route exact path="/posts/new">
-						{user ? <NewPostPage /> : <Redirect to="/sign-in" />}
+						{user ? <NewPostPage /> : <Redirect to="/auth/sign-in" />}
 					</Route>
 					<Route exact path="/posts/:postId">
-						{user ? <PostPage /> : <Redirect to="/sign-in" />}
+						{user ? <PostPage /> : <Redirect to="/auth/sign-in" />}
 					</Route>
 					<Route exact path="/posts/:postId/edit">
-						{user ? <EditPostPage /> : <Redirect to="/sign-in" />}
+						{user ? <EditPostPage /> : <Redirect to="/auth/sign-in" />}
 					</Route>
-					<Route exact path="/sign-up">
+					<Route exact path="/auth/sign-up">
 						{user ? <Redirect to="/" /> : <SignUpPage />}
 					</Route>
-					<Route exact path="/sign-in">
+					<Route exact path="/auth/sign-in">
 						{user ? <Redirect to="/" /> : <SignInPage setUser={setUser} />}
 					</Route>
 				</Switch>
