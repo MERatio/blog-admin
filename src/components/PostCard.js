@@ -6,7 +6,7 @@ import pluralize from 'pluralize';
 import useIsMounted from '../lib/useIsMounted';
 import LoadingBtn from './LoadingBtn';
 
-function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
+function PostCard({ post, handlePostPublishedUpdate }) {
 	const isMounted = useIsMounted();
 
 	const [isUpdatingPostPublished, setIsUpdatingPostPublished] = useState(false);
@@ -45,11 +45,7 @@ function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 			<div className="card-body">
 				<p className="card-text">{post.body}</p>
 				<Link to={`/posts/${post._id}`} className="card-link">
-					{pluralize(
-						'comments',
-						post.comments ? post.comments.length : postCommentsLength,
-						true
-					)}
+					{pluralize('comments', post.comments.length, true)}
 				</Link>
 			</div>
 		</article>
@@ -59,7 +55,6 @@ function PostCard({ post, handlePostPublishedUpdate, postCommentsLength }) {
 PostCard.propTypes = {
 	post: PropTypes.object.isRequired,
 	handlePostPublishedUpdate: PropTypes.func.isRequired,
-	postCommentsLength: PropTypes.number,
 };
 
 export default PostCard;
